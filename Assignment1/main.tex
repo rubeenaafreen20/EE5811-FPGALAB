@@ -1,0 +1,77 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{multicol}
+\usepackage{amssymb}
+\usepackage[framed]{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{enumerate}
+\usepackage{circuitikz}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{karnaugh-map}
+\usepackage{tikz}
+
+\begin{document}
+\begin{center}
+
+{\huge EE5811 : FPGA LAB}\\
+{\large ASSIGNMENT 1}
+
+\end{center}
+Rubeena Aafreen \hfill EE20RESCH11012
+
+\vspace{15pt}
+\hrule
+\vspace{5pt}
+\section{Problem}
+Derive a Canonical SOP expression for a Boolean function $F$, represented by the following truth table
+
+\begin{center}
+    \begin{table} [h!]
+    \centering
+    \begin{tabular}{ | c | c | c | c | }
+    \hline
+    A & B & C & F(A,B,C) \\ [0.5ex]
+     \hline
+    0 & 0 & 0 & 1 \\
+    0 & 0 & 1 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 1 & 1 & 1 \\
+    1 & 0 & 0 & 1 \\
+    1 & 0 & 1 & 0 \\
+    1 & 1 & 0 & 0 \\
+    1 & 1 & 1 & 1 \\ [1ex]
+    \hline
+    \end{tabular}
+    \end{table}
+\end{center}
+\vspace{15pt}
+\hrule
+\vspace{5pt}
+
+\section{Solution}
+\subsection{KMAP Implementation}
+\begin{figure}[!ht]
+\centering
+{
+\begin{karnaugh-map}[4][2][1][][]
+    \minterms{0,3,4,7}
+    \maxterms{1,2,5,6}
+    \implicant{0}{4}
+    \implicant{3}{7}
+    \draw[color=black, ultra thin] (0,2) --
+    node [pos=0.7, above right, anchor=south west] {$BC$} % YOU CAN CHANGE NAME OF VAR HERE, THE $X$ IS USED FOR ITALICS
+    node [pos=0.7, below left, anchor=north east] {$A$} % SAME FOR THIS
+    ++(135:1);
+    \end{karnaugh-map}
+}
+\caption{SOP for F using KMAP}
+\label{fig1}
+\end{figure}
+The given expression can be minimized using KMap as shown in Figure \ref{fig1}. Using implicants in figure, SOP terms obtained are: $\Bar{B}\Bar{C}+BC$\\
+\subsection{Minimized SOP Expression}
+$F=\Bar{B}\Bar{C}+BC$
+\end{document}

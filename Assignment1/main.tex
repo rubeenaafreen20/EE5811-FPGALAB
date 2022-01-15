@@ -108,8 +108,10 @@ Circuit diagram with NAND gates is shown below:
 \draw (Nandb.in 1)--(Nandb.in 2);
 \draw (Nandc.in 1)--(Nandc.in 2);
 % Inputs
-\draw (Nandb.in 1) -- ++(-1.5,0)node[left](In1){B};
-\draw (Nandc.in 2) -- ++(-1.5,0)node[left](In2){C};
+\draw (Nandb.in 1) -- ++(0,-0.22)node[circ](t1){};
+\draw (Nandc.in 1) -- ++(0,-0.22)node[circ](t2){};
+\draw (t1) -- ++(-1.5,0)node[left](In1){B};
+\draw (t2) -- ++(-1.5,0)node[left](In2){C};
 %Connection
 \draw (In1)++(1,0) node [circ](x){};
 \draw (In2) ++(1,0) node [circ](y){};

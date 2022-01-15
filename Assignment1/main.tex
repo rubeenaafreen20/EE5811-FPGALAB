@@ -117,8 +117,8 @@ Circuit diagram with NAND gates is shown below:
 \draw (In2) ++(1,0) node [circ](y){};
 \draw (Nande.in 1) -| (x) ; 
 \draw (Nande.in 2) -| (y)  node [circ]{} ;
-\draw (Nandf.in 1) -|  node [circ]{}(Nandb.out) ; 
-\draw (Nandf.in 2) -|  node [circ]{}(Nandc.out) ; 
+\draw (Nandf.in 1) -|(Nandb.out) ; 
+\draw (Nandf.in 2) -|(Nandc.out) ; 
 \draw (Nande.out) -| (Nandg.in 1);
 \draw (Nandf.out) -| (Nandg.in 2);
 \end{tikzpicture}

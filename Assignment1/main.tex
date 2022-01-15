@@ -13,6 +13,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{karnaugh-map}
 \usepackage{tikz}
+\usetikzlibrary{shapes.gates.logic.US}
+\usetikzlibrary{circuits.ee.IEC}
 
 \begin{document}
 \begin{center}
@@ -73,5 +75,51 @@ Derive a Canonical SOP expression for a Boolean function $F$, represented by the
 \end{figure}
 The given expression can be minimized using KMap as shown in Figure \ref{fig1}. Using implicants in figure, SOP terms obtained are: $\Bar{B}\Bar{C}+BC$\\
 \subsection{Minimized SOP Expression}
-$F=\Bar{B}\Bar{C}+BC$
+\begin{align}
+    F=BC+\Bar{B}\Bar{C}
+\end{align}
+\subsection{NAND Expression}
+To express the given SOP expression using NAND gates, we have
+\begin{align}
+    &F(A,B,C)=BC+\Bar{B}\Bar{C}\\
+    &F(A,B,C)=\overline{(\overline{BC+\Bar{B}\Bar{C}})}\\
+    &F(A,B,C)=\overline{(\overline{BC} . \overline{\Bar{B}\Bar{C}})}
+\end{align}
+\newpage
+\subsection{NAND Gate Implementation}
+Circuit diagram with NAND gates is shown below:
+\begin{figure}[ht!]
+\centering
+\begin{tikzpicture}
+% Circuit style
+\ctikzset{
+    logic ports=ieee,
+    logic ports/scale=0.8,
+    logic ports/fill=lightgray
+}
+% Logic ports
+\draw (3,0) node[nand port] (Nandb){};
+\draw (3,-6) node[nand port] (Nandc){}; 
+\draw (6,-2) node[nand port] (Nande){};
+\draw (6,-4) node[nand port] (Nandf){};
+\draw (10,-3) node[nand port] (Nandg){};
+\draw (Nandg.out) -- ++(1,0) node[near end,above]{F};
+% Connect NAND Gates
+\draw (Nandb.in 1)--(Nandb.in 2);
+\draw (Nandc.in 1)--(Nandc.in 2);
+% Inputs
+\draw (Nandb.in 1) -- ++(-1.5,0)node[left](In1){B};
+\draw (Nandc.in 2) -- ++(-1.5,0)node[left](In2){C};
+%Connection
+\draw (In1)++(1,0) node [circ](x){};
+\draw (In2) ++(1,0) node [circ](y){};
+\draw (Nande.in 1) -| (x) ; 
+\draw (Nande.in 2) -| (y)  node [circ]{} ;
+\draw (Nandf.in 1) -|  node [circ]{}(Nandb.out) ; 
+\draw (Nandf.in 2) -|  node [circ]{}(Nandc.out) ; 
+\draw (Nande.out) -| (Nandg.in 1);
+\draw (Nandf.out) -| (Nandg.in 2);
+\end{tikzpicture}
+\caption{NAND gate implementation for F}
+\end{figure}
 \end{document}
